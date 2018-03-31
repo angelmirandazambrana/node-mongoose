@@ -11,25 +11,23 @@ connect.then(()=>{
 
     console.log('Connected correctly to server');
    
-    var newDish=Dishes({
-        name: 'Uthapizza5',
+    Dishes.create({
+        name: 'Uthapizza',
         description: 'test'
+    })
+    .then((dish)=>{
+        console.log(dish);
+
+        return Dishes.find({}).exec();
+    })
+    .then ((dishes)=>{
+        console.log(dishes);
+        return Dishes.remove({});
+    })
+    .then(()=>{
+        return connection.close();
+    })
+    .catch((err)=>{
+        console.log(err);
     });
-
-    newDish.save()
-        .then((dish)=>{
-            console.log(dish);
-
-            return Dishes.find({}).exec();
-        })
-        .then ((dishes)=>{
-            console.log(dishes);
-            return Dishes.remove({});
-        })
-        .then(()=>{
-            return connection.close();
-        })
-        .catch((err)=>{
-            console.log(err);
-        });
 })
